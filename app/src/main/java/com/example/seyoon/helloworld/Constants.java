@@ -25,4 +25,6 @@ public class Constants {
     public static String DIVISION = "/";
     public static String D_POINT = ".";
 
+    public static String NO_ADD_SIGN = "기호 뒤에는 숫자를 입력해주세요";
+
 }

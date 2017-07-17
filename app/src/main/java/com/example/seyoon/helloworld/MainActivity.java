@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     char lastChar;
     ArrayList<String> doubleList;
     ArrayList<String> operationList;
-    boolean check;
+    String check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         doubleList = new ArrayList<String>();
         operationList = new ArrayList<String>();
-        check = true;
 
         addButton();
     }
@@ -64,6 +63,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }catch (NumberFormatException ne){
             return false;
+        }
+    }
+
+    public boolean signCheck(String text){
+        check = text.substring(text.length()-1, text.length());
+        if(check.equals("+") || check.equals("-") || check.equals("*")|| check.equals("/")){
+            return false;
+        }else{
+            return true;
         }
     }
 
@@ -180,33 +188,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonPlus:
                 temp = textView.getText().toString();
-                temp += Constants.PLUS;
-                textView.setText(temp);
-
+                if(signCheck(temp)){
+                    temp += Constants.PLUS;
+                    textView.setText(temp);
+                }else{
+                    Toast.makeText(MainActivity.this, Constants.NO_ADD_SIGN, Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.buttonMinus:
                 temp = textView.getText().toString();
-                temp += Constants.MINUS;
-                textView.setText(temp);
+                if(signCheck(temp)){
+                    temp += Constants.MINUS;
+                    textView.setText(temp);
+                }else{
+                    Toast.makeText(MainActivity.this, Constants.NO_ADD_SIGN, Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.buttonMulti:
                 temp = textView.getText().toString();
-                temp += Constants.MULTI;
-                textView.setText(temp);
+                if(signCheck(temp)){
+                    temp += Constants.MULTI;
+                    textView.setText(temp);
+                }else{
+                    Toast.makeText(MainActivity.this, Constants.NO_ADD_SIGN, Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.buttonDivision:
                 temp = textView.getText().toString();
-                temp += Constants.DIVISION;
-
-                textView.setText(temp);
+                if(signCheck(temp)){
+                    temp += Constants.DIVISION;
+                    textView.setText(temp);
+                }else{
+                    Toast.makeText(MainActivity.this, Constants.NO_ADD_SIGN, Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.buttonBackSpace:
                 temp = textView.getText().toString();
-                temp = temp.substring(0, temp.length()-1);
+                if(temp.equals("")){
+                    temp = "0";
+                }else{
+                    temp = temp.substring(0, temp.length()-1);
+                    if(temp.equals("")){
+                        temp = "0";
+                    }
+                }
                 textView.setText(temp);
                 break;
 
@@ -298,7 +327,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }// +, - 처리 for문
                 }
 
-                textView.setText(String.valueOf(res));
+                // 최종 결과 출력 부분
+
+                if((String.valueOf(res).substring(String.valueOf(res).length()-2, String.valueOf(res).length())).equals(".0")){
+                    temp = String.valueOf(res).substring(0, String.valueOf(res).length()-2);
+                }else{
+                    temp = String.valueOf(res);
+                }
+
+                textView.setText(temp);
                 doubleList = new ArrayList<String>();
                 operationList = new ArrayList<String>();
                 break;
