@@ -334,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else{
                     temp = String.valueOf(res);
                 }
+                
 
                 textView.setText(temp);
                 doubleList = new ArrayList<String>();
