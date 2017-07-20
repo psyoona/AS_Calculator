@@ -253,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 lastChar = temp.charAt(temp.length()-1);
                 if(lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/' || lastChar == '.'){
                     Toast.makeText(MainActivity.this, "숫자 입력 후 = 을 누르세요", Toast.LENGTH_SHORT).show();
+                    return ;
                 }else{
                     char[] chr = temp.toCharArray();
                     int j=0;
@@ -334,7 +335,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else{
                     temp = String.valueOf(res);
                 }
-                
 
                 textView.setText(temp);
                 doubleList = new ArrayList<String>();
